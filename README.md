@@ -112,6 +112,10 @@ export default AboutInfoPage;
 
 ## Tailwind and DaisyUI
 
+https://tailwindcss.com/docs/padding
+
+https://daisyui.com/components/button/
+
 - both videos optional
 
 - remove extra code in globals.css
@@ -125,6 +129,8 @@ npm i @tailwindcss/typography
 ```
 
 tailwind.config.js
+
+https://daisyui.com/docs/layout-and-typography/
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -160,7 +166,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <nav className='text-2xl test-primary'>this is navbar</nav>
+        {children}
+      </body>
     </html>
   );
 }
