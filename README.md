@@ -1059,8 +1059,6 @@ const TaskList = async () => {
 export default TaskList;
 ```
 
-toto
-
 ## Server Actions
 
 - asynchronous server functions that can be called directly from your components.

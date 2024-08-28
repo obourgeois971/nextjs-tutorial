@@ -1,7 +1,39 @@
 import React from 'react';
+import prisma from '@/utils/db';
+import { revalidatePath } from 'next/cache';
+
+const createTask = async (formData) => {
+  'use server';
+  const content = formData.get('content');
+  console.log(content);
+  // some validation here
+
+  await prisma.task.create({
+    data: {
+      content,
+    },
+  });
+  // revalidate path
+  revalidatePath('/tasks');
+};
 
 function TaskForm() {
-  return <div>TaskForm</div>;
+  return (
+    <form action={createTask}>
+      <div className='join w-full'>
+        <input
+          type='text'
+          className='input input-bordered join-item w-full'
+          placeholder='type here'
+          name='content'
+          required
+        />
+        <button type='submit' className='btn btn-primary join-item'>
+          create task
+        </button>
+      </div>
+    </form>
+  );
 }
 
 export default TaskForm;
