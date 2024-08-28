@@ -23,7 +23,15 @@ const SingleDrink = async ({ params }) => {
         back to drinks
       </Link>
       {/* <img src={imgSrc} alt='' /> */}
-      <Image src={drinkImg} className='w-48 h-48 rounded' alt='' />
+      {/* <Image src={drinkImg} className='w-48 h-48 rounded' alt='' /> */}
+      <Image
+        src={imgSrc}
+        width={300}
+        height={300}
+        className='w-48 h-48 rounded shadow-lg mb-4'
+        priority
+        alt=''
+      />
       <h1 className='text-4xl mb-8'>{title}</h1>
     </div>
   );
