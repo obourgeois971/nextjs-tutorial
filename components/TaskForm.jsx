@@ -1,39 +1,38 @@
-import React from 'react';
-import prisma from '@/utils/db';
-import { revalidatePath } from 'next/cache';
+'use client';
 
-const createTask = async (formData) => {
-  'use server';
-  const content = formData.get('content');
-  console.log(content);
-  // some validation here
+import { createTaskCustom } from '@/utils/actions';
+import { useFormStatus } from 'react-dom';
+// The useFormStatus Hook provides status information of the last form submission.
+// useFormState is a Hook that allows you to update state based on the result of a form action.
 
-  await prisma.task.create({
-    data: {
-      content,
-    },
-  });
-  // revalidate path
-  revalidatePath('/tasks');
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type='submit'
+      className='btn join-item btn-primary'
+      disabled={pending}
+    >
+      {pending ? 'please wait... ' : 'create task'}
+    </button>
+  );
 };
 
-function TaskForm() {
+const TaskForm = () => {
   return (
-    <form action={createTask}>
+    <form action={createTaskCustom}>
       <div className='join w-full'>
         <input
-          type='text'
           className='input input-bordered join-item w-full'
-          placeholder='type here'
+          placeholder='Type Here'
+          type='text'
           name='content'
           required
         />
-        <button type='submit' className='btn btn-primary join-item'>
-          create task
-        </button>
+        <SubmitButton />
       </div>
     </form>
   );
-}
-
+};
 export default TaskForm;
