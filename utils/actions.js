@@ -3,6 +3,7 @@
 import prisma from '@/utils/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { z } from 'zod';
 
 export const getAllTasks = async () => {
   return prisma.task.findMany({
@@ -58,12 +59,19 @@ export const editTask = async (formData) => {
   redirect('/tasks');
 };
 
-// fix params
 export const createTaskCustom = async (prevState, formData) => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const content = formData.get('content');
+
+  const Task = z.object({
+    content: z.string().min(5),
+  });
+
   // some validation here
   try {
+    Task.parse({
+      content,
+    });
     await prisma.task.create({
       data: {
         content,
@@ -73,6 +81,7 @@ export const createTaskCustom = async (prevState, formData) => {
     revalidatePath('/tasks');
     return { message: 'success!!!' };
   } catch (error) {
+    console.log(error);
     // can't return error
     return { message: 'error...' };
   }
