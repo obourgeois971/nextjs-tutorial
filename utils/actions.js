@@ -2,7 +2,7 @@
 
 import prisma from '@/utils/db';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/dist/server/api-utils';
+import { redirect } from 'next/navigation';
 
 export const getAllTasks = async () => {
   return prisma.task.findMany({
@@ -58,16 +58,22 @@ export const editTask = async (formData) => {
   redirect('/tasks');
 };
 
-export const createTaskCustom = async (formData) => {
+// fix params
+export const createTaskCustom = async (prevState, formData) => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const content = formData.get('content');
   // some validation here
-
-  await prisma.task.create({
-    data: {
-      content,
-    },
-  });
-  // revalidate path
-  revalidatePath('/tasks');
+  try {
+    await prisma.task.create({
+      data: {
+        content,
+      },
+    });
+    // revalidate path
+    revalidatePath('/tasks');
+    return { message: 'success!!!' };
+  } catch (error) {
+    // can't return error
+    return { message: 'error...' };
+  }
 };
