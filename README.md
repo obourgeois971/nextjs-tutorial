@@ -1764,6 +1764,8 @@ npx prisma db push
 
 ### Setup App
 
+https://planetscale.com/
+
 package.json
 
 ```json
