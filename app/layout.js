@@ -3,6 +3,7 @@ import './globals.css';
 
 // alias
 import Navbar from '@/components/NavBar';
+import Providers from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         {/* <nav className='text-2xl text-primary'>this is navbar</nav> */}
         <Navbar />
-        <main className='px-8 py-20 max-w-6xl mx-auto '>{children}</main>
+        <main className='px-8 py-20 max-w-6xl mx-auto '>
+          <Providers>{children}</Providers>
+        </main>
       </body>
     </html>
   );
