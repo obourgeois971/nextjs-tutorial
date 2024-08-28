@@ -1760,11 +1760,11 @@ toto
 npx prisma db push
 ```
 
+https://planetscale.com/
+
 ### Local Build
 
 ### Setup App
-
-https://planetscale.com/
 
 package.json
 
